@@ -21,6 +21,10 @@ Output a number of seconds in human readable form:
     >> HumanTime.output 5452302
     => "2 months"
     
+Output the number of seconds in human readable form, rounding up to a minimum unit:
+
+    >> HumanTime.output 53005, { :round_to => HumanTime::DAY }
+    
 Get the difference between two integer values of seconds:
 
     >> HumanTime.between 3600, 60
@@ -44,3 +48,41 @@ Get the difference between two integer values of seconds:
     => 2012-04-03 12:35:26 +0100 
     >> HumanTime.between t1, t2
     => "1 hour" 
+    
+You can also additional options to #output or #between.
+
+To round up times:
+
+    >> HumanTime.output 23
+    => "23 seconds" 
+    >> HumanTime.output 23, { :round_to => HumanTime::MINUTE }
+    => "1 minute" 
+    >> HumanTime.output 234
+    => "3 minutes 54 seconds" 
+    >> HumanTime.output 234, { :round_to => HumanTime::HOUR }
+    => "1 hour" 
+    >> HumanTime.output 53005
+    => "14 hours 43 minutes" 
+    >> HumanTime.output 53005, { :round_to => HumanTime::DAY }
+    => "1 day" 
+    >> HumanTime.output 530052
+    => "6 days" 
+    >> HumanTime.output 530052, { :round_to => HumanTime::WEEK }
+    => "6 days" 
+    >> HumanTime.output 1209600
+    => "2 weeks" 
+    >> HumanTime.output 1209600, { :round_to => HumanTime::MONTH }
+    => "1 month" 
+    >> HumanTime.output 5452302
+    => "2 months" 
+    >> HumanTime.output 5452302, { :round_to => HumanTime::YEAR }
+    => "2 months"
+    
+    >> t1 = Time.now
+    => 2012-04-03 11:35:22 +0100 
+    >> t2 = Time.now + 3600
+    => 2012-04-03 12:35:26 +0100 
+    >> HumanTime.between t1, t2
+    => "1 hour" 
+    >> HumanTime.between t1, t2, { :round_to => HumanTime::DAY }
+    => "1 day" 

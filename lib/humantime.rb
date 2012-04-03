@@ -4,11 +4,12 @@ class HumanTime
   MINUTE = 60
   HOUR = 3600
   DAY = 86400
+  WEEK = 604800
   MONTH = 2629743
   YEAR = 31556926
   
   # Parse an integer and return the string representation of a time
-  def self.output int
+  def self.output int, options = {}
     str = []
     display = ['years', 'months', 'days', 'hours', 'minutes', 'seconds']
     
@@ -31,12 +32,17 @@ class HumanTime
     end
         
     # Months
-    if int < YEAR && int > ( MONTH - 1 ) && display.include?('months')
+    if ( int < YEAR && int > ( MONTH - 1 ) && display.include?('months') ) || options[:round_to] == MONTH
       months = int / MONTH
       int = int - ( months * MONTH )
       display.delete 'minutes'
       display.delete 'seconds'
       display.delete 'hours' 
+      
+      if options[:round_to] == MONTH
+        months = months.round + 1
+        int = 0
+      end
       
       if months.round == 1
         str << "#{months.round} month"
@@ -49,11 +55,16 @@ class HumanTime
     end
         
     # Days
-    if int < MONTH && int > ( DAY - 1 ) && display.include?('hours')
+    if ( int < MONTH && int > ( DAY - 1 ) && display.include?('hours')) || options[:round_to] == DAY
       days = int / DAY
       int = int - ( days * DAY )
       display.delete 'minutes' 
       display.delete 'seconds'
+      
+      if options[:round_to] == DAY
+        days = days.round + 1
+        int = 0
+      end
       
       if days.round == 1
         str << "#{days.round} day"
@@ -74,32 +85,42 @@ class HumanTime
     end    
         
     # Hours
-    if int < DAY && int > ( HOUR - 1 ) && display.include?('hours')
+    if ( int < DAY && int > ( HOUR - 1 ) && display.include?('hours') ) || options[:round_to] == HOUR
       hours = int / HOUR
       int = int - ( hours * HOUR )
       display.delete 'seconds'
       
-      if hours.round == 1
-        str << "#{hours.round} hour"
+      if options[:round_to] == HOUR
+        hours = hours.round + 1
+        int = 0
+      end
+      
+      if hours == 1
+        str << "#{hours} hour"
       else
-        str << "#{hours.round} hours"
+        str << "#{hours} hours"
       end
     end
         
     # Minutes
-    if int < HOUR && int > ( MINUTE - 1 ) && display.include?('minutes')
+    if ( int < HOUR && int > ( MINUTE - 1 ) && display.include?('minutes') ) || options[:round_to] == MINUTE
       mins = int / MINUTE
       int = int - ( mins * MINUTE )
       
-      if mins.round == 1
-        str << "#{mins.round} minute"
+      if options[:round_to] == MINUTE
+        mins = mins.round + 1
+        int = 0
+      end
+      
+      if mins == 1
+        str << "#{mins} minute"
       else
-        str << "#{mins.round} minutes"
+        str << "#{mins} minutes"
       end
     end
         
     # Seconds
-    if int < MINUTE && int > 0 && display.include?('seconds')
+    if int < MINUTE && int > 0 && display.include?('seconds')      
       if int.round == 1
         str << "#{int.round} second"
       else
@@ -111,7 +132,7 @@ class HumanTime
   end
   
   # Output the difference betwen two integer / DateTime / Time values
-  def self.between start_time, end_time
+  def self.between start_time, end_time, options = {}
     et = end_time.to_i
     st = start_time.to_i
     
@@ -122,7 +143,7 @@ class HumanTime
     else
       diff = 0
     end
-    self.output diff
+    self.output diff, options
   end
     
   # From https://github.com/hpoydar/chronic_duration
