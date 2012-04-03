@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 group :development do
-  gem "rcov"
+  gem "simplecov"
   gem "bundler"
   gem "jeweler", "~> 1.8.3"
 end

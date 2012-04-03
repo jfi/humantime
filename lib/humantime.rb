@@ -10,8 +10,10 @@ class HumanTime
   # Parse an integer and return the string representation of a time
   def self.output int
     str = []
-    display = ['years', 'months', 'days', 'hours', 'minutes', 'seconds']    
-        
+    display = ['years', 'months', 'days', 'hours', 'minutes', 'seconds']
+    
+    return "0 seconds" if int == 0
+      
     # Years
     if int > ( YEAR - 1 ) && display.include?('years')
       years = int / YEAR
@@ -96,6 +98,21 @@ class HumanTime
     end
     
     str.join(' ') 
+  end
+  
+  # Output the difference betwen two integer / DateTime / Time values
+  def self.between start_time, end_time
+    et = end_time.to_i
+    st = start_time.to_i
+    
+    if et > st
+      diff = et - st
+    elsif st > et 
+      diff = st - et
+    else
+      diff = 0
+    end
+    self.output diff
   end
     
   # From https://github.com/hpoydar/chronic_duration

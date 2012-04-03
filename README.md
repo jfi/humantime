@@ -20,3 +20,20 @@ Output a number of seconds in human readable form:
     => "14 days"
     >> HumanTime.output 5452302
     => "2 months"
+    
+Get the difference between two integer values of seconds:
+
+    >> HumanTime.between 3600, 60
+    => "59 minutes" 
+ 
+ Get the difference between two Time or DateTime values:
+ 
+    >> HumanTime.between Time.now, Time.now
+    => "0 seconds" 
+
+    >> t1 = Time.now
+    => 2012-04-03 11:35:22 +0100 
+    >> t2 = Time.now + 3600
+    => 2012-04-03 12:35:26 +0100 
+    >> HumanTime.between t1, t2
+    => "1 hour" 
