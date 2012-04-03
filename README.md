@@ -30,7 +30,14 @@ Get the difference between two integer values of seconds:
  
     >> HumanTime.between Time.now, Time.now
     => "0 seconds" 
-
+    
+    >> t1 = Time.utc( 2011, 12, 1 )
+    => 2011-12-01 00:00:00 UTC 
+    >> t2 = Time.utc( 2011, 12, 8 )
+    => 2011-12-08 00:00:00 UTC 
+    >> HumanTime.between t1, t2
+    => "1 week" 
+    
     >> t1 = Time.now
     => 2012-04-03 11:35:22 +0100 
     >> t2 = Time.now + 3600
