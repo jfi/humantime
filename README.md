@@ -49,7 +49,7 @@ Get the difference between two integer values of seconds:
     >> HumanTime.between t1, t2
     => "1 hour" 
     
-You can also additional options to #output or #between.
+You can also pass additional options to #output or #between.
 
 To round up times:
 
@@ -86,3 +86,10 @@ To round up times:
     => "1 hour" 
     >> HumanTime.between t1, t2, { :round_to => HumanTime::DAY }
     => "1 day" 
+    
+# Changelog
+
+0.1.0: First release. [March 25, 2012]
+0.2.0: Added HumanTime#between method. [April 3, 2012]
+0.2.1: Changes to display "0 seconds" if you're passing two times that are the same to HumanTime#between. [April 3, 2012]
+0.2.2: Added ability to pass an options hash containing :round_to to #between and #output. [April 3, 2012] 
