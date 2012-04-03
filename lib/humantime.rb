@@ -58,7 +58,17 @@ class HumanTime
       if days.round == 1
         str << "#{days.round} day"
       else
-        str << "#{days.round} days"
+        # Display weeks, because we're cool like that
+        if days.round % 7 == 0
+          weeks = days.round / 7
+          if weeks == 1
+            str << "1 week"
+          else
+            str << "#{weeks} weeks"
+          end
+        else
+          str << "#{days.round} days"
+        end
         display.delete 'hours'
       end
     end    
