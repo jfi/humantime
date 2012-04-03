@@ -89,7 +89,7 @@ To round up times:
     
 # Changelog
 
-0.1.0: First release. [March 25, 2012]
-0.2.0: Added HumanTime#between method. [April 3, 2012]
-0.2.1: Changes to display "0 seconds" if you're passing two times that are the same to HumanTime#between. [April 3, 2012]
-0.2.2: Added ability to pass an options hash containing :round_to to #between and #output. [April 3, 2012] 
+- 0.1.0: First release. [March 25, 2012]
+- 0.2.0: Added HumanTime#between method. [April 3, 2012]
+- 0.2.1: Changes to display "0 seconds" if you're passing two times that are the same to HumanTime#between. [April 3, 2012]
+- 0.2.2: Added ability to pass an options hash containing :round_to to #between and #output. [April 3, 2012] 
