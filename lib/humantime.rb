@@ -7,6 +7,8 @@ class HumanTime
   WEEK = 604800
   MONTH = 2629743
   YEAR = 31556926
+
+  GREATEST = -1
   
   # Parse an integer and return the string representation of a time
   def self.output int, options = {}
@@ -22,6 +24,9 @@ class HumanTime
       display.delete 'minutes' 
       display.delete 'seconds' 
       display.delete 'hours'
+      if options[:round_to] == GREATEST
+        display = display.slice 0..display.index('years')
+      end
       
       if years.round == 1
         str << "#{years.round} year"
@@ -37,7 +42,10 @@ class HumanTime
       int = int - ( months * MONTH )
       display.delete 'minutes'
       display.delete 'seconds'
-      display.delete 'hours' 
+      display.delete 'hours'
+      if options[:round_to] == GREATEST
+        display = display.slice 0..display.index('months')
+      end
       
       if options[:round_to] == MONTH
         months = months.round + 1
@@ -60,7 +68,10 @@ class HumanTime
       int = int - ( days * DAY )
       display.delete 'minutes' 
       display.delete 'seconds'
-      
+      if options[:round_to] == GREATEST
+        display = display.slice 0..display.index('days')
+      end
+
       if options[:round_to] == DAY
         days = days.round + 1
         int = 0
@@ -89,6 +100,9 @@ class HumanTime
       hours = int / HOUR
       int = int - ( hours * HOUR )
       display.delete 'seconds'
+      if options[:round_to] == GREATEST
+        display = display.slice 0..display.index('hours')
+      end
       
       if options[:round_to] == HOUR
         hours = hours.round + 1
@@ -106,6 +120,9 @@ class HumanTime
     if ( int < HOUR && int > ( MINUTE - 1 ) && display.include?('minutes') ) || options[:round_to] == MINUTE
       mins = int / MINUTE
       int = int - ( mins * MINUTE )
+      if options[:round_to] == GREATEST
+        display = display.slice 0..display.index('minutes')
+      end
       
       if options[:round_to] == MINUTE
         mins = mins.round + 1
@@ -181,5 +198,4 @@ class HumanTime
       'y'       => 'years'
     }
   end
-
 end
